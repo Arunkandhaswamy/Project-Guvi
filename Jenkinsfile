@@ -16,7 +16,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'dev', url: 'https://github.com/Arunkandhaswamy/Project-Guvi.git'
+                git branch: 'prod', url: 'https://github.com/Arunkandhaswamy/Project-Guvi.git'
                 script {
                     env.BRANCH_NAME = sh(script: "git rev-parse --abbrev-ref HEAD", returnStdout: true).trim()
                     echo "Branch Name Set: ${env.BRANCH_NAME}"
