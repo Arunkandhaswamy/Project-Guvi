@@ -61,7 +61,7 @@ pipeline {
                             echo "No merge detected. Skipping push to prod."
                         }
                     }
-                }
+                
             }
         }
 
