@@ -32,7 +32,7 @@ pipeline {
                     
                     if (env.BRANCH_NAME == 'dev') {
                         sh "docker tag devops-build_react-app:latest $DOCKER_DEV_IMAGE:latest"
-                    } else if (env.BRANCH_NAME == 'master') {
+                    } else if (env.BRANCH_NAME == 'prod') {
                         sh "docker tag devops-build_react-app:latest $DOCKER_PROD_IMAGE:latest"
                     }
                 }
@@ -55,7 +55,7 @@ pipeline {
                     if (env.BRANCH_NAME == 'dev') {
                         echo "Pushing to public dev repository..."
                         sh "docker push $DOCKER_DEV_IMAGE:latest"
-                    } else if (env.BRANCH_NAME == 'master') {
+                    } else if (env.BRANCH_NAME == 'prod') {
                         echo "Checking if dev was merged before pushing to prod..."
                         def mergeCheck = sh(script: "git log --oneline -n 1 | grep 'Merge pull request'", returnStatus: true)
                         echo "Merge Check Exit Code: ${mergeCheck}"
@@ -74,12 +74,12 @@ pipeline {
             when {
                 anyOf {
                     branch 'dev'
-                    branch 'master'
+                    branch 'prod'
                 }
             }
             steps {
                      script {
-                        def imageName = (env.BRANCH_NAME == 'dev') ? DOCKER_DEV_IMAGE : DOCKER_PROD_IMAGE
+                        def imageName = (env.BRANCH_NAME == 'prod') ? DOCKER_DEV_IMAGE : DOCKER_PROD_IMAGE
                         echo "Deploying $imageName to EC2..."
                         sh """
                             docker stop devops-build_react-app_1 || true &&
