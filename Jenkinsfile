@@ -56,12 +56,7 @@ pipeline {
                         echo "Pushing to public dev repository..."
                         sh "docker push $DOCKER_DEV_IMAGE:latest"
                     } else if (env.BRANCH_NAME == 'prod') {
-                        echo "Checking if dev was merged before pushing to prod..."
-                        def mergeCheck = sh(script: "git log --oneline -n 1 | grep 'Merge pull request'", returnStatus: true)
-                        echo "Merge Check Exit Code: ${mergeCheck}"
-                        if (mergeCheck == 0) {
-                            echo "Dev branch was merged. Pushing to private prod repository..."
-                            sh "docker push $DOCKER_PROD_IMAGE:latest"
+                        sh "docker push $DOCKER_PROD_IMAGE:latest"
                         } else {
                             echo "No merge detected. Skipping push to prod."
                         }
