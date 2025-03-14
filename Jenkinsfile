@@ -6,7 +6,7 @@ pipeline {
         DOCKER_PROD_IMAGE = "arunkandhaswamy/prod-react-app"
         DOCKER_CREDENTIALS = "docker-hub-credentials"
         EC2_USER = "ubuntu"
-        EC2_IP = "18.246.214.145"
+        EC2_IP = "35.162.90.168"
     }
 
     triggers {
