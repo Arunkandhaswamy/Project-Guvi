@@ -79,7 +79,7 @@ pipeline {
             }
             steps {
                      script {
-                        def imageName = (env.BRANCH_NAME == 'prod') ? DOCKER_DEV_IMAGE : DOCKER_PROD_IMAGE
+                        def imageName = (env.BRANCH_NAME == 'dev') ? DOCKER_DEV_IMAGE : DOCKER_PROD_IMAGE
                         echo "Deploying $imageName to EC2..."
                         sh """
                             docker stop devops-build_react-app_1 || true &&
